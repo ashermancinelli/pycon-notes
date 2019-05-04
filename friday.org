@@ -1,0 +1,93 @@
+
+* Friday Keynote
+
+    ** Problem: Di##tribution of Python code
+
+        It## not enough to just follow the rules, you have to 
+        en##ure the competition is fair.
+
+* API Evolution the Right Way
+
+    How do we propogate clear and explicit and intuitive API de##igns?
+
+        Keep API## and features narrow and specific
+
+    Deletion of feature##:
+        Con: code & logic mu##t change for users
+        Pro: Change i## mechanical, feature may be dangerous
+
+    Method## for implementing a new API:
+        
+        introduce the new method along##ide the old method and use the `warnings` module
+
+    Parameter change:
+        Ought to u##e default arguments when adding a new parameter so
+        that old behavior i## preserved and old code is not broken
+
+* Modern ##olvers: problems well defined are problems solved (Raymond
+Hettinger)
+
+    ** Breadth- and depth- fir##t search
+        
+        the generic tool i## more powerful than the specific tool
+        generic puzzle ##olver
+
+    ** SAT Solver##
+
+        propo##itional logic solver
+        A SAT ##olver looks for rows where all values are true (tautology)
+        Many problem## which SAT solvers tackle are provably intractable
+        by brute force. Thu## we can use SAT solvers with an intractable
+        number of variable## by exploiting patterns and isomorphic, 
+        ##ymmetrical patterns.
+        `pyco##at` -> SAT solver in python
+        only thing needed i## to describe the problem well, in the form
+        of a SAT problem
+
+        *** Ein##tein Puzzle
+            Alway## write helper functions so your code is more humanistic
+
+    ** reinforcement learning
+        randomly try ##trategies. If they work, choose them more often
+        
+    ** temporal logic
+        next logical ##teps for SAT solvers
+        z3py package for TLA ##olver 
+
+    ** generic MCTS with CNN and reinforcement learning (Putting it all
+    together)
+        learn to play complex game## given only the rules to the game
+        monte carlo tree ##earch to backtrace the best path
+        garry ka##parov: deep thinking
+             
+* Fighting climate change with python
+
+* CPython Eric Snow
+
+    Except for very ##pecific computation, the GIL should not cause much of a
+    performance hit
+
+    ** Looking forward
+
+        Potentially a new c-api?
+        part of the c-api are depended on by other module##
+
+    ** Solution##
+
+        phy##ically separate the categories of the C-API
+        more opaque ##tructs
+
+    ** Subinterpreter##
+
+        Subinterpreter## are other interpreters started outside the main one
+        po##sibly expose the subinterpreter C-API (PEP554)
+
+        ```
+        inter = interpreter##.create()
+        inter.run(dedent("""
+        print('te##t')
+        """))
+        ```
+
+        thi## would run some code in another interpreter
+    

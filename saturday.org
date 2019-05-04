@@ -1,0 +1,252 @@
+
+* Shadeed Wallave-Stepter
+
+    was in prison for armed robbery and shooting someone (damn)
+    entrepeneur after that
+    only source of empowerment was from gangs and violence, sourced
+    from his older brother's involvement in gangs
+    best freind died on his shoulder after getting shot in the head
+    at the time he was on trial for this, his mom also got into 
+    trouble and was coincidentally at the courthouse at the same
+    time. 
+
+    Prison was built to keep him there: either carry knife and maybe
+    not get stabbed, or dont carry a knife and for sure get stabbed
+    Average prisoner is completely ignorant to the law
+    
+    San Quentin prison had programs for restoration and for getting
+    associates degrees. Very common there for people leave and come back in a couple months
+
+    Access to learning materials is ahuge imporvement to the prison system
+
+    why is python important:
+        older black convicted felon with no job history learned 
+        python to get out of the system.
+        community prides itself on community and access to the 
+        material
+        Inclusion is what brings the community together
+
+    Takeaway: 
+        expand your horizon of inclusion
+        convicted felons specifically
+
+* Jessica McKellar
+
+    prison system: we have an obligation to confront this system
+    what can we as engineers do against the prison system?
+
+    systems engineering that matters:
+
+    1. systemic:       decarceration
+        fewer people in prison, and for less time
+
+    2. individual:     seccessful re-entry
+        Stable housing and employment
+
+    as individuals:
+        1. direct support for people leaving prison
+            money
+            equipment
+        2. job training and re-entry
+            different prisons have varying ways to help
+            max-security prisons do not have any way out,
+            only to lower security prisons
+            some have unreasonable waiting lists (several years)
+            political engagement
+        3. tech support for local reform organizations
+        
+    as employeers:
+        hire people getting out of prison, specifically those
+        with violent criminal records
+
+    concrete shared action:
+        1. vote and get our families and friends to vote in
+            district attorney elections
+        2. ask our employers and schools how they use background 
+            checks and if they hire people with records
+        3. by pycon 2020 help someone recently out of prison
+            get a job
+
+* Instagram: deploying 70-100 times a day
+
+    deployment strategy:
+        build
+        run tests
+        canary
+        take lock
+        notify authors
+        track deploy start
+        deploy | deploy | deploy (in parallel)
+        track deploy end
+        release lock
+
+    authors encouraged to own the process
+
+    lack of ability to push/deploy over failed tests
+    no option to run tests, mandetory
+
+    automation:
+        commit
+        post-commit hook: deploy script
+
+    deploy every dingle commit as soon as it lands
+    continuous deployment as a service internally
+
+    deployment team became the bottleneck!
+
+    tested and canary-tested post-landing of commit 
+
+    commit wil be pushed to production within 1 hour of commit landing
+        engineers can be expected to support their changes
+        hot-changes are fast
+
+    culture of testing supports continuous deployment, but
+        sometimes errors are only revealed at scale
+
+    `c1 tier` only applies commits to ~2% of users, if no errors are
+        revealed after ~7 minutes, commit is deployed to 100% of users
+
+    controller watches db for commits and decides what tier a commit should
+    be deployed to
+    runners watch for changes in the db to apply updates to each tier of fleet
+    monolithic script broken into microservices and pipelines
+    modular system to apply everything 
+    time-to-deployment increased, but maintainability, reliability, and
+    modularity increased
+
+    batches commits to bring deployment to the maximum of 8commits/hr
+
+    built uWSGI hot-reload system to reload with no downtime
+        spawn new master
+        migrate all children to new master
+        reload master
+        append master to system
+
+    fleet used to be 100% homogoneous
+    then it was split between python 2/3
+    Then split by c1/c2
+    now new libraries/modules are tested by manually adding into 
+        server and being monitored
+
+    "do the simple things first"
+    mandetory test suite and canary success
+    "push as fast as you can"
+    "build a culture around code quality/testing"
+    type-checking pushed to 100% of codebase for testing
+
+* black magic of Python wheels (@ehashdn on twitter)
+
+    ** history of python packaging
+        
+        originally the Egg
+        no standard, organically adopted
+
+        wheels came from PEP427
+        standard for distribution, cannot contain .pyc files
+
+        *** pure wheels
+            contain just python code
+
+        *** universal wheels
+            python 2/3 compatible
+
+        *** extension wheel
+            
+            extensions without binary wheels involves a lot
+            of groundwork to get other source/headers to work together
+
+            pre-built extension wheel saves this time
+
+            extensions are safe to pip install
+            conda was developed to bridge this gap, however conda was not
+            from a PEP and only supports conda envs, doesnt work with pypi
+
+            a python native extensions code compiled specifically for my OS
+            extends python with non-python code
+            CFFI: C foreign function interface
+
+            extension wheels solve this, pre-compile with compatiblility
+            gauruntee
+
+            symbol versioning (manylinux) and permitted libraries (auditwheel)
+
+    ** what is auditwheel?
+        locates external libraries and bundles into distribution
+        build wheel from inside manylinux docker image to make 
+        manylinux wheel distro
+
+    auditwheel repair to check for dependency compliance
+
+    ** overview of the wheel
+    ** why we need natve extensions
+    ** how do native extensions even work
+    ** how you can get involved
+    
+* Advanced asyncio
+
+* When to put down the neural networks
+
+    @ To a hammer, everything looks like a nail @
+
+    (Devlin et al) -> when things don't work, just restart until
+    you find a model that works
+    Lot of guesswork in deep learning atm
+
+    only use a NN if: (most powerful)
+        a hman can do the same thing sfast
+        high tolerance for weeird errors
+        dont need to explain answer
+        large quantity of data
+        lot of time and money
+
+    regression: (most interpretable)
+        you pick the family of functions
+        fast to fit 
+        workds well with smaller dataset
+        easy to interpret
+
+        mixed effects regression
+    trees: (user friendlieist)
+        random forests 
+        ensemble method of other methods 
+        + less data cleaning and model validation
+        + easy to use packages
+        - can overfi
+        - generally more sensitive to differences
+        - less interpretable than regression
+        - can require more conpute time
+
+    distance based: (most lightweight)
+        points closer together to each toher in feature space are 
+        more likely to be in the same group
+        ex:
+            - k nearest neighbrs
+            - gaussian mixture models
+            - SVM
+
+        + very well with small datasets
+        + very fast to train
+        - overall accuracy is okay, not usually the best
+        - good at classification, not good at estimation
+
+* Deep learning keras / numpy to detect voice disorders
+    (sebastian hanus | deborah hanus)
+
+* Cuda in your python (william horton @hortonhearsafoo)
+    
+    Moore's law is dead :(
+
+    drop-in replacement:
+        pip install `cupy` (numpy on GPU)
+        drop in replacement for numpy
+        cuDF -> Pandas
+        cuML -> sci-kit learn
+
+    compiling CUDA strings in python:
+        using the CUDA API
+        mapping for threads
+
+    C/C++ extension with CUDA interop:
+        pyCUDA -> takes a string of cuda code and compiles it,
+        returns a function and lets you use it on your python objects
+        cuda.InOut(a) handles all the data transferring to/from the GPU
